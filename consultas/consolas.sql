@@ -1,0 +1,1 @@
+SELECT * FROM venta_juegos.cat_consolas;

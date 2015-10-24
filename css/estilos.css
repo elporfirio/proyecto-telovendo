@@ -1,0 +1,298 @@
+@charset "utf-8";
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.clr{
+	clear: both;
+}
+
+/* INDEX.PHP */
+
+.cuadro_azul{
+	width: 340px;
+	/*height: 180px;*/
+	margin: 0 auto;
+	display: block;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
+	color: #FFF;
+	margin-top: 10%;
+	padding-top: 10px;
+	padding-bottom: 20px;
+	text-align: center;
+	
+	border-radius:15px 40px 5px;
+	-moz-border-radius:15px 40px 5px;
+	-webkit-border-radius: 15px 40px 5px;
+	
+	background: #a9e4f7; /* Old browsers */
+	background: -moz-linear-gradient(top,  #a9e4f7 0%, #0fb4e7 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a9e4f7), color-stop(100%,#0fb4e7)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #a9e4f7 0%,#0fb4e7 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #a9e4f7 0%,#0fb4e7 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #a9e4f7 0%,#0fb4e7 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #a9e4f7 0%,#0fb4e7 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a9e4f7', endColorstr='#0fb4e7',GradientType=0 ); /* IE6-9 */
+}
+
+.cuadro_azul a{
+	color: #FFF;
+}
+
+.cuadro_azul a:hover{
+	background-color: #F90;
+	color: #FFF;
+}
+
+/* FIN index.php */
+
+#barra_tareas{
+	background: #a9e4f7; /* Old browsers */
+	background: -moz-linear-gradient(top,  #a9e4f7 0%, #0fb4e7 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a9e4f7), color-stop(100%,#0fb4e7)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #a9e4f7 0%,#0fb4e7 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #a9e4f7 0%,#0fb4e7 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #a9e4f7 0%,#0fb4e7 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #a9e4f7 0%,#0fb4e7 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a9e4f7', endColorstr='#0fb4e7',GradientType=0 ); /* IE6-9 */
+	width: 100%;
+	padding-top: 10px;
+	height: auto;
+}
+
+#barra_tareas p{
+	font-family: Arial, Helvetica, sans-serif;
+	color: #006;
+}
+.info_usuario {
+	float: left;
+	margin-left: 10%;
+}
+
+.cerrar_sesion{
+	float: right;
+	margin-right: 10%;
+}
+
+/* MUESTRA DE VIDEOJUEGOS */
+.juegos{
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+.juegos h2{
+	display: block;
+	background-color: #E8F3FF;
+	padding-left: 5%;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	color: #09C;
+	
+	-moz-box-shadow: inset 0 0 2px 1px #09C;
+	-webkit-box-shadow: inset 0 0 2px 1px #09C;
+	box-shadow: inset 0 0 2px 1px #09C;
+	
+	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius: 10px;
+}
+.muestra_juego{
+	border: #bbdaf7 solid thin;
+	padding: 3px;
+	margin-left: 15px;
+	margin-right: 15px;
+	float: left;
+	text-align: center;
+	width: 180px;
+	
+	border-radius:10px 20px 5px;
+	-moz-border-radius:10px 20px 5px;
+	-webkit-border-radius: 10px 20px 5px;
+}
+
+.dato_consola{
+	float: left;
+	font-size: 12px;
+	font-weight: bold;
+	font-style: italic;
+}
+
+.dato_genero{
+	float: left;
+	font-size: 12px;
+	font-weight: bold;
+	font-style: italic;
+}
+
+.dato_precio{
+	float:right;
+	font-size: 24px;
+	
+	letter-spacing: -1px;
+}
+
+.dato_descripcion{
+	float: left;
+	font-size: 11px;
+	text-align: left;
+	margin-top: 10px;
+}
+
+.dato_detalles{
+	margin-top: 10px;
+	-moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+	box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5) );
+	background:-moz-linear-gradient( center top, #79bbff 5%, #378de5 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5');
+	background-color:#79bbff;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	color:#ffffff;
+	font-family:arial;
+	font-size:12px;
+	font-weight:bold;
+	padding:0px 13px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #528ecc;
+}
+.dato_detalles:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff) );
+	background:-moz-linear-gradient( center top, #378de5 5%, #79bbff 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff');
+	background-color:#378de5;
+}
+.dato_detalles:active {
+	position:relative;
+	top:1px;
+}
+
+/* ############################# */
+.detalles{
+	margin-left: 10%;
+	margin-right: 10%;
+	margin-top: 5%;
+}
+.detalles_juego{
+	/*background-color: #0F3;*/
+	min-width: 98%;
+	
+	color: #006;
+	float: left;
+	text-align: center;
+	padding: 20px;
+	
+	border-radius:10px 20px 5px;
+	-moz-border-radius:10px 20px 5px;
+	-webkit-border-radius: 10px 20px 5px;
+}
+
+.detalles_juego img{
+	float: left;
+	margin-left: 3%;
+	margin-top: 3%;
+}
+
+.detalles_juego h1{
+	float: left;
+	padding-left: 5%;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	color: #09C;
+}
+
+.detalle_consola{
+	float:left;
+	margin-left: 5%;
+}
+.detalle_genero{
+	float:left;
+	margin-left: 5%;
+}
+.detalle_precio{
+	float:right;
+	margin-left: 5%;
+	font-size: 35px;
+	letter-spacing: -2px;
+}
+.detalle_descripcion{
+	margin-top: 5%;
+	margin-left: 5%;
+	text-align: left;
+	font-size: 14px;
+}
+/* #################### */
+.comentarios{
+	/*background-color: #9F9;*/
+	text-align: left;
+	margin-left: 8%;
+	margin-right: 8%;
+}
+
+.comentarios img{
+	float: left;
+	margin: 0;
+	margin: 0 20px;
+}
+
+.comentarios p{
+	padding: 1%;
+	font-size: 14px;
+}
+
+.fecha_comentario {
+	float: right;
+	font-size: 12px;
+	font-family: "Courier New", Courier, monospace;
+	margin-right: 10%;
+}
+
+.comment1{
+	padding-top: 10px;
+	background-color: #FFF;
+}
+.comment0{
+	padding-top: 10px;
+	background-color: #6CF;
+}
+
+/* MENSAJES DE INFORMACION */
+
+.info, .success, .warning, .error, .validation {
+border: 1px solid;
+margin: 0 auto;
+margin-top: 15%;
+padding:15px 10px 15px 50px;
+background-repeat: no-repeat;
+background-position: 10px center;
+width: 350px;
+}
+.info {
+color: #00529B;
+background-color: #BDE5F8;
+background-image: url('../imagenes/info.png');
+}
+.success {
+color: #4F8A10;
+background-color: #DFF2BF;
+background-image:url('../imagenes/success.png');
+}
+.warning {
+color: #9F6000;
+background-color: #FEEFB3;
+background-image: url('../imagenes/warning.png');
+}
+.error {
+color: #D8000C;
+background-color: #FFBABA;
+background-image: url('../imagenes/error.png');
+}
+
+/* FIN MENSAJES DE INFORMACION */
