@@ -10,7 +10,7 @@
 <body>
 <div class="cuadro_azul">
 	<h1>Bienvenido</h1>
-	<a href="login.php" class="boton">Iniciar sesión</a>
+	<a href="login.php" class="boton">Iniciar sesión / Registrarse</a>
 	<br><br>
 	<a href="home.php">Saltar registro, solo quiero ver</a>
 </div>
