@@ -2,13 +2,20 @@
 session_start();
 //print_r($_SESSION);
 
-require_once('clases/class.php');
+require_once('clases/Conexion.php');
+require_once('clases/ControladorConsola.php');
+require_once('clases/ControladorGenero.php');
 
-$datos = new consultaConsola;
-$consolas = $datos->obtenerConsola();
 
-$datos = new consultaGenero;
-$generos = $datos->obtenerGenero();
+$conexion = new Conexion();
+$controladorConsola = new ControladorConsola();
+$controladorGenero = new ControladorGenero();
+
+$controladorConsola->obtenerConsolas($conexion);
+$controladorGenero->obtenerGeneros($conexion);
+
+$consolas = $controladorConsola->consolas;
+$generos = $controladorGenero->generos;
 
 ?>
 <!doctype html>
@@ -24,35 +31,37 @@ $generos = $datos->obtenerGenero();
 <div class="cuadro_azul">
 <h2>Juego nuevo</h2>
 <form action="registrar_juego.php" method="post" enctype="multipart/form-data">
-	<label for="nombre_juego">Nombre</label>
-	<input name="nombre_juego" type="text" value="" class="texto">
+	<label for="nombre">Nombre</label>
+	<input name="nombre" type="text" value="" class="texto" required>
 	
 	
-	<select name="consola_juego">
-		<option value="no_valido">- Seleccione una consola -</option>
+	<select name="consola" required>
+		<option value="">- Seleccione una consola -</option>
 		<?php
-		foreach($consolas as $indice => $contenido){
-				echo "<option value=\"".$contenido['idcat_consolas']."\">".$contenido['nombre']."</option>";
+		foreach($consolas as $consola){
+				echo "<option value=\"".$consola->id."\">".$consola->nombre."</option>";
 			}
 		?>
 	</select>
-	<select name="genero_juego">
-		<option value="no_valido">- Seleccione un género -</option>
+	<select name="genero" required>
+		<option value="">- Seleccione un género -</option>
 		<?php
-		foreach($generos as $indice => $contenido){
-				echo "<option value=\"".$contenido['idcat_generos']."\">".$contenido['nombre']."</option>";
+		foreach($generos as $genero){
+				echo "<option value=\"".$genero->id."\">".$genero->nombre."</option>";
 			}
 		?>
 	</select>
-	<label for="descripcion_juego">Descripción</label>
-	<textarea name="descripcion_juego" class="descripcion_juego"></textarea>
-	<div class="custom-input-file boton"><input type="file" size="1" class="input-file" name="portada_juego"/>
-    Agregar portada
-</div> 
+	<label for="descripcion">Descripción</label>
+	<textarea name="descripcion" class="descripcion" required></textarea>
+    <label for="portada">Portada</label>
+    <div class="">
+        <input type="file" size="1" class="input-file" name="portada"/>
+    </div>
+    <br>
 <div class="clr"></div>
-	<label for="precio_juego">Precio</label>
-	<input name="precio_juego" type="text" class="texto" maxlength="6">
-	<input type="submit" value="Colocar nuevo juego" class="boton">
+	<label for="precio">Precio</label>
+	<input name="precio" type="text" class="texto" maxlength="6" required>
+	<button type="submit" class="boton"> Crear nuevo juego</button>
 </form>
 </div>
 </body>

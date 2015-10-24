@@ -12,6 +12,8 @@ require_once('Juego.php');
 class ControladorJuego
 {
     public $juegos = [];
+    public $claseResultado;
+    public $mensajeResultado;
 
     public function consultarJuegos($username = '', Conexion $conexion){
 
@@ -105,6 +107,77 @@ class ControladorJuego
         }
         else{
             echo "no hay juegos registrados";
+        }
+    }
+
+
+    public function registrarJuego(Juego $juego, Conexion $conexion){
+        $consulta = "INSERT INTO juegos (idusuario, nombre, idconsola, idgenero, descripcion, portada, precio, fecha_creacion, slug)
+					VALUES ((SELECT idusuarios FROM usuarios WHERE usuario = :usuario), :nombre, :consola, :genero,
+					 :descripcion, :portada, :precio, NOW(), :slug)";
+
+        try {
+            $stmt = $conexion->acceso->prepare($consulta);
+
+            $archivo = $this->moverArchivos($juego->portada);
+
+            if(sizeof($archivo) > 0)
+                $ubicacion = $archivo[0];
+            else
+                $ubicacion = null;
+
+
+            $slug = urlencode($juego->nombre);
+            $stmt->bindParam(':usuario', $juego->usuario);
+            $stmt->bindParam(':nombre', $juego->nombre);
+            $stmt->bindParam(':consola', $juego->consola);
+            $stmt->bindParam(':genero', $juego->genero);
+            $stmt->bindParam(':descripcion', $juego->descripcion);
+            $stmt->bindParam(':portada', $ubicacion);
+            $stmt->bindParam(':precio', $juego->precio);
+            $stmt->bindParam(':slug', $slug);
+
+            if($stmt->execute()){
+                $this->claseResultado = 'success';
+                $this->mensajeResultado = "Juego registrado";
+                return $conexion->acceso->lastInsertId(); //Devuelve el último ID que se inserta
+            }
+
+        } catch (PDOException $ex){
+            echo "<strong>Error de ejecución: </strong>" . $ex->getMessage() . "<br>";
+            die();
+        }
+    }
+
+    private function moverArchivos($archivos){ //Optimizada para multiples archivos
+
+        //var_dump($archivos);
+        $uploads_dir = "upload"; //archivos para subir
+        $ubicaciones = array();
+
+        //comprueba si el directorio existe y si es posible escribir
+        if (file_exists($uploads_dir) && is_writable($uploads_dir)) {
+            if ($archivos["error"] == 0) {
+                $archivo = date("Ymd") . "_" . date("is"). "_".$archivos["name"];
+                $ubicacion = $archivos["tmp_name"];
+                if(!move_uploaded_file($ubicacion,"$uploads_dir/$archivo")){
+                    echo "No se puede mover el archivo";
+                }
+                else{
+                    $ubicaciones[] = $archivo;
+                }
+            }
+            else{
+                if($archivos["error"] != 0 and $archivos["error"] != 4){//Si no subieron archivos No enviar ninguna advertencia
+                    $mensaje = $this->file_upload_error_message($archivos["error"]);
+                    echo $mensaje." Intente nuevamente.";
+                    exit;
+                }
+            }
+            return $ubicaciones;
+        }
+        else {
+            echo "No existe la carpeta para subir archivos o no tiene los permisos suficientes.";
         }
     }
 }
