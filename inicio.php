@@ -1,7 +1,13 @@
 <?php 
 
 session_start();
-require_once("clases/class.php"); ?>
+
+//Incluimos las clases
+require_once('clases/Usuario.php');
+require_once('clases/Conexion.php');
+require_once('clases/ControladorUsuario.php');
+require_once('clases/ControladorJuego.php');
+?>
 <!doctype html>
 <html>
 <head>
@@ -21,19 +27,19 @@ require_once("clases/class.php"); ?>
 <div class="juegos">
 <h2>Ultimos juegos agregados</h2>
 <?php
-$datos = new consultaJuego;
-$tipo = array("todos",0);
-$juegos = $datos->consultarJuego($_SESSION["id_usuario"],$tipo);
-$datos->mostrarJuegos($juegos);
+$conexion = new Conexion();
+$controladorJuego = new ControladorJuego();
+
+$controladorJuego->consultarJuegos('', $conexion);
+$controladorJuego->mostrarJuegos($controladorJuego->juegos);
+
 ?>
 </div>
 <div class="juegos">
 <h2>Tus juegos publicados</h2>
 <?php
-$datos = new consultaJuego;
-$tipo = array("mios",0);
-$tus_juegos = $datos->consultarJuego($_SESSION["id_usuario"],$tipo);
-$datos->mostrarJuegos($tus_juegos);
+$controladorJuego->consultarJuegos($_SESSION["usuario"], $conexion);
+$controladorJuego->mostrarJuegos($controladorJuego->juegos);
 ?>
 </div>
 

@@ -11,6 +11,29 @@ class ControladorUsuario
     public $mensajeResultado;
     public $claseResultado;
 
+    public function iniciarSesionUsuario(Usuario $usuario, Conexion $conexion){
+        $consulta = "SELECT usuario, email, nombre FROM usuarios
+					 WHERE usuario = :usuario AND contrasena = :contrasena";
+
+        try {
+            $stmt = $conexion->acceso->prepare($consulta);
+
+            $contrasena_encriptada = $usuario->getContrasena();
+
+            $stmt->bindParam(':usuario', $usuario->usuario);
+            $stmt->bindParam(':contrasena', $contrasena_encriptada);
+
+            if($stmt->execute()){
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+
+        } catch (PDOException $ex){
+            echo "<strong>Error de ejecución: </strong>" . $ex->getMessage() . "<br>";
+            die();
+        }
+
+    }
+
     public function registrarUsuario(Usuario $usuario, Conexion $conexion){
 
         /* Verificar duplicidad de nombre de usuario */

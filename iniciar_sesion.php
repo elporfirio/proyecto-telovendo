@@ -4,22 +4,30 @@
 session_start();
 
 //Incluimos las clases
-require_once("clases/class.php");
+require_once('clases/Usuario.php');
+require_once('clases/Conexion.php');
+require_once('clases/ControladorUsuario.php');
 
 
-if($_POST != null){
-	$datos = new consultaUsuario;
-	$myusuario = $datos->comprobarUsuario($_POST["usuario"], $_POST["contrasena"]);
-		
-	if(sizeof($myusuario) != 0){
-		foreach($myusuario as $indice => $campo){
-			$_SESSION["id_usuario"] = $campo["idusuarios"];
-			$_SESSION["nombre"] = $campo["nombre"];
-			$_SESSION["email"] = $campo["email"];
-		}
-		print_r($_SESSION);
-		header('Location: inicio.php');
-	}
+if(isset($_POST)){
+
+    $usuario = new Usuario();
+
+    $usuario->setContrasena($_POST["contrasena"]);
+    $usuario->usuario = $_POST["usuario"];
+
+    $conexion = new Conexion();
+
+    $controladorUsuario = new ControladorUsuario();
+
+    $resultado = $controladorUsuario->iniciarSesionUsuario($usuario,$conexion);
+
+    if($resultado != false){
+        $_SESSION["nombre"] = $resultado["nombre"];
+        $_SESSION["usuario"] = $resultado["usuario"];
+        $_SESSION["email"] = $resultado["email"];
+        header('Location: inicio.php');
+    }
 	else {
 	?>
 	
@@ -34,7 +42,7 @@ if($_POST != null){
 		<body>
 		<div class="error">Datos incorrectos
 			<br>
-			<strong><a href='login.php'>regresar al inicio de sesión</a></strong>
+			<strong><a href='javascript:history.back()'>regresar al inicio de sesión</a></strong>
 		</div>
 		</body>
 		</html>
