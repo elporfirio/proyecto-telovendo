@@ -15,7 +15,7 @@ class ControladorJuego
     public $claseResultado;
     public $mensajeResultado;
 
-    public function consultarJuegos($username = '', Conexion $conexion){
+    public function consultarJuegos($username = '', Conexion $conexion, $juego = ''){
 
         $this->juegos = [];
 
@@ -38,6 +38,10 @@ class ControladorJuego
 //            $consulta .= " WHERE idjuegos ='".$tipo[1]."'";
 //        }
 
+        if($juego != ''){
+            $consulta .= " WHERE slug = :juego";
+        }
+
         if($username != ''){
             $consulta .= " WHERE usuarios.usuario = :username";
         }
@@ -50,6 +54,10 @@ class ControladorJuego
 
             if($username != '') {
                 $stmt->bindParam('username', $username);
+            }
+
+            if($juego != '') {
+                $stmt->bindParam('juego', $juego);
             }
             if($stmt->execute()){
                 $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -178,6 +186,40 @@ class ControladorJuego
         }
         else {
             echo "No existe la carpeta para subir archivos o no tiene los permisos suficientes.";
+        }
+    }
+
+    public function mostrarJuegoDetalle($juegos){
+        if(sizeof($juegos) != 0){
+            foreach($juegos as $juego) {
+                echo "
+            <div class=\"detalles_juego\">
+            <div style=\"float: left\">";
+                if ($juego->portada != "") {
+                    echo "<img src=\"upload/" . $juego->portada . "\" width=\"182\" height=\"269\">";
+                } else {
+                    echo "<img src=\"imagenes/sin_imagen.jpg\" width=\"182\" height=\"269\">";
+                }
+                echo "
+            <div clas=\"clr\"></div>
+            </div>
+            <div style=\"float: left; width: 80%;\">
+            <h1>" . $juego->nombre . "</h1>
+            <div class=\"clr\"></div>";
+                echo "
+                <div class=\"detalle_consola\">" . $juego->consola . "</div>
+                <div class=\"detalle_genero\">genero: " . $juego->genero . "</div>
+                <div class=\"detalle_precio\">$ " . $juego->precio . "</div>
+                <div class=\"clr\"></div>
+                <div class=\"detalle_descripcion\">" . $juego->descripcion . "</div>
+                <div class=\"clr\"></div>
+            </div>
+            <div class=\"clr\"></div>
+				";
+            }
+        }
+        else{
+            echo "no hay juegos registrados";
         }
     }
 }

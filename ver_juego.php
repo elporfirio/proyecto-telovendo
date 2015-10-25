@@ -1,8 +1,18 @@
 <?php
 session_start();
+
+require_once("clases/Conexion.php");
+require_once("clases/ControladorJuego.php");
+require_once("clases/ControladorComentario.php");
+
+
+
 require_once("clases/class.php");
 
-$id_juego = base64_decode($_GET["j"]);
+$slugjuego = base64_decode($_GET["j"]);
+$conexion = new Conexion();
+$controladorJuego = new ControladorJuego();
+
 ?>
 <!doctype html>
 <html>
@@ -22,21 +32,25 @@ $id_juego = base64_decode($_GET["j"]);
 </div>
 <div class="detalles">
 <?php
-$tipo = array("detalle",$id_juego);
-$datos = new consultaJuego;
-$eljuego = $datos->consultarJuego($_SESSION["id_usuario"],$tipo);
-$datos->mostrarJuegoDetalle($eljuego);
+
+$controladorJuego->consultarJuegos('',$conexion, $slugjuego);
+$controladorJuego->mostrarJuegoDetalle($controladorJuego->juegos);
+
 ?>
 <div class="comentarios">
 <h2>comentarios</h2>
 <?php
-$datos2 = new consultaComentario;
-$loscomentarios = $datos2->obtenerComentario($id_juego);
-$datos2->mostrarComentario($loscomentarios);
+$controladorComentario = new ControladorComentario();
+$controladorComentario->consultarComentarios($controladorJuego->juegos[0]->slug,$conexion);
+$controladorComentario->mostrarComentario($controladorComentario->comentarios);
+
+//$datos2 = new consultaComentario;
+//$loscomentarios = $datos2->obtenerComentario($id_juego);
+//$datos2->mostrarComentario($loscomentarios);
 ?>
 <h4>Deja tu comentario</h4>
 <form action="registrar_comentario.php" method="post">
-	<input type="hidden" name="juego" value="<?php echo $id_juego?>">
+	<input type="hidden" name="juego" value="<?php echo $slugjuego?>">
 	<textarea name="comentarios" class="comenta"></textarea>
 	<input type="submit" class="boton grande" value="Enviar comentario">
 </form>
