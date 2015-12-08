@@ -13,6 +13,8 @@ $slugjuego = base64_decode($_GET["j"]);
 $conexion = new Conexion();
 $controladorJuego = new ControladorJuego();
 
+$usuario = (isset($_SESSION["nombre"])) ? $_SESSION["nombre"] : 'visitante';
+
 ?>
 <!doctype html>
 <html>
@@ -25,10 +27,16 @@ $controladorJuego = new ControladorJuego();
 
 <body>
 <div id="barra_tareas">
-	<div class="info_usuario"><p>Bienvenido <strong><?php echo $_SESSION["nombre"] ?></strong></p></div>
+	<div class="info_usuario"><p>Bienvenido <strong><?php echo $usuario ?></strong></p></div>
+    <?php
+    if(isset($_SESSION["nombre"])):
+    ?>
 	<div class="info_usuario"><input type="button" class="boton" value="agregar juegos" onClick="window.location.assign('nuevo_juego.php');"></div>
 	<div class="cerrar_sesion"><input type="button" value="Cerrar sesion" class="boton" onClick="window.location.assign('cerrar_sesion.php');"></div>
-	<div class="clr"></div>
+        <?php
+    endif;
+    ?>
+    <div class="clr"></div>
 </div>
 <div class="detalles">
 <?php
@@ -48,6 +56,9 @@ $controladorComentario->mostrarComentario($controladorComentario->comentarios);
 //$loscomentarios = $datos2->obtenerComentario($id_juego);
 //$datos2->mostrarComentario($loscomentarios);
 ?>
+    <?php
+    if(isset($_SESSION["nombre"])):
+    ?>
 <h4>Deja tu comentario</h4>
 <form action="registrar_comentario.php" method="post">
 	<input type="hidden" name="juego" value="<?php echo $slugjuego?>">
@@ -55,6 +66,9 @@ $controladorComentario->mostrarComentario($controladorComentario->comentarios);
 	<input type="submit" class="boton grande" value="Enviar comentario">
 </form>
 </div> <!-- termina class "comentarios -->
+<?php
+endif;
+?>
 </div> <!-- DIV QUE SE QUEDA ABIERTO EN  mostrarJuegoDetalle($eljuego); -->
 <a href="inicio.php">Regresar al inicio</a>
 </div>

@@ -42,7 +42,7 @@ echo "<div class=\"". $controladorJuego->claseResultado ."\"> $controladorJuego-
 		<br>";
 
 if ($resultado != false) {
-    echo "<strong><a href='javascript:inicio.php'>< Regresar</a></strong>";
+    echo "<strong><a href='inicio.php'>< Regresar</a></strong>";
 }
 
 echo "</div>";

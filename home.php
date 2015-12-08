@@ -1,32 +1,54 @@
+<?php
+
+session_start();
+
+//Incluimos las clases
+require_once('clases/Usuario.php');
+require_once('clases/Conexion.php');
+require_once('clases/ControladorUsuario.php');
+require_once('clases/ControladorJuego.php');
+?>
+
 <!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>Documento sin título</title>
-<script>
-function redireccionar(){
-	alert("Sección en construcción es necesario que te registres o inicies sesión");
-	window.location.href="login.php";	
-	}
-</script>
+    <link href="css/estilos.css" rel="stylesheet" type="text/css">
 </head>
 
-<body onload="redireccionar();">
-<div>
-<h2>Ultimos agregados</h2>
-<a href="lista_juegos.php">ver todos los juegos</a>
+<body>
+<div class="juegos">
+    <h2>Ultimos juegos agregados</h2>
+    <?php
+    $conexion = new Conexion();
+    $controladorJuego = new ControladorJuego();
+
+    $controladorJuego->consultarJuegos('', $conexion);
+    $controladorJuego->mostrarJuegos($controladorJuego->juegos);
+
+    ?>
 </div>
-<div>
+<div class="juegos">
 <h4>Ultimos agregados en XBOX</h4>
-<a href="lista_juegos.php">ver todos los juegos de XBOX</a>
+    <?php
+    $controladorJuego->consultarJuegos('', $conexion, '', [2,8]);
+    $controladorJuego->mostrarJuegos($controladorJuego->juegos);
+    ?>
 </div>
-<div>
-<h4>Ultimos agregados en PS3</h4>
-<a href="lista_juegos.php">ver todos los juegos de PS3</a>
+<div class="juegos">
+<h4>Ultimos agregados en PlayStation</h4>
+    <?php
+    $controladorJuego->consultarJuegos('', $conexion, '', [1,6,4]);
+    $controladorJuego->mostrarJuegos($controladorJuego->juegos);
+    ?>
 </div>
-<div>
-<h4>Ultimos agregados en Wii</h4>
-<a href="lista_juegos.php">ver todos los juegos de Wii</a>
+<div class="juegos">
+<h4>Ultimos agregados en Nintendo</h4>
+    <?php
+    $controladorJuego->consultarJuegos('', $conexion, '', [5,3,7]);
+    $controladorJuego->mostrarJuegos($controladorJuego->juegos);
+    ?>
 </div>
 </body>
 </html>

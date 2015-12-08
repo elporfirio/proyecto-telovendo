@@ -102,11 +102,11 @@ body {
 .muestra_juego{
 	border: #bbdaf7 solid thin;
 	padding: 3px;
-	margin-left: 15px;
-	margin-right: 15px;
+	margin: 15px;
 	float: left;
 	text-align: center;
 	width: 180px;
+    height: 420px;
 	
 	border-radius:10px 20px 5px;
 	-moz-border-radius:10px 20px 5px;

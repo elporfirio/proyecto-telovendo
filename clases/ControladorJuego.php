@@ -15,9 +15,11 @@ class ControladorJuego
     public $claseResultado;
     public $mensajeResultado;
 
-    public function consultarJuegos($username = '', Conexion $conexion, $juego = ''){
+    public function consultarJuegos($username = '', Conexion $conexion, $juego = '', $consolas = []){
 
         $this->juegos = [];
+
+        $antecedente = false;
 
         $consulta = "SELECT usuarios.nombre AS username, juegos.nombre AS nombre, descripcion, portada, precio, slug, cat_generos.nombre AS genero, cat_consolas.nombre AS consola
                     FROM juegos
@@ -28,26 +30,33 @@ class ControladorJuego
                     RIGHT JOIN cat_generos
                     ON juegos.idgenero = cat_generos.idcat_generos";
 
-//        if($tipo[0] == "mios" and $id_usuario != 0)
-//            $consulta .= " WHERE idusuario = $id_usuario";
-//
-//        if($tipo[0] == "todos")
-//            $consulta .= " WHERE idusuario != $id_usuario";
-//
-//        if($tipo[0] == "detalle"){
-//            $consulta .= " WHERE idjuegos ='".$tipo[1]."'";
-//        }
-
         if($juego != ''){
             $consulta .= " WHERE slug = :juego";
+            $antecedente = true;
         }
 
         if($username != ''){
             $consulta .= " WHERE usuarios.usuario = :username";
+            $antecedente = true;
         }
 
-        $consulta .= " ORDER BY fecha_creacion DESC LIMIT 5";
+        if(count($consolas) > 0){
+            $consulta .= " WHERE idconsola IN (";
+            foreach($consolas as $consola){
+                $consulta .= $consola . ",";
+            }
+            $consulta = substr($consulta, 0, -1);
+            $consulta .= ")";
+            $antecedente = true;
+        }
 
+        if($antecedente){
+            $consulta .= " AND juegos.nombre != null";
+        } else {
+            $consulta .= " WHERE juegos.nombre != null";
+        }
+
+        $consulta .= " ORDER BY fecha_creacion DESC LIMIT 10";
 
         try{
             $stmt = $conexion->acceso->prepare($consulta);
